@@ -1,0 +1,58 @@
+<h1> Shopping Cart</h1>
+<div class="row col-10">
+    <p>
+        <span>You have {{cart.totalItemsCount}} items in your Cart</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button (click) = "clearCart()" class="btn btn-danger btn-sm">Clear Shopping Cart</button>
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Product</th>
+                <th class="text-center">Quantity</th>
+                <th class="text-right">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor ="let item of cart.items ">
+                <td>
+                    <div [style.backgroundImage]="'url(' + item.imageUrl + ')'" class="thumbnail"></div>
+                </td>
+                <td>{{ item.title }}</td>
+                <td>
+                    <!-- <app-product-quantity  [shoppingCart]="cart" [product]="item"></app-product-quantity> -->
+                    <div class="row no-gutters">
+                        <div class="col-2">
+                            <button (click)="removeFromCart(item)" class="btn btn-secondary btn-block">-</button>
+                        </div>
+                        <div class="col text-center">
+                            {{ getQuantity(item) }} in cart
+                        </div>
+                        <div class="col-2">
+                            <button (click)="addToCart(item)" class="btn btn-secondary btn-block">+</button>
+                        </div>
+                    </div>
+                </td>
+                <td class="text-right">{{ item.totalPrice | currency:'USD':symbol}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th class="text-right">{{ cart.totalPrice | currency:'USD':symbol }}</th>
+            </tr>
+        </tfoot>
+    </table>
+    <a  class="btn btn-primary" routerLink = "/check-out">Check Orders</a>
+    
+</div>
